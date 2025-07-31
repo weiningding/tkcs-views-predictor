@@ -204,36 +204,29 @@ def show_optimal_characteristics():
     length_sq_coef = coefs.get('Length_log_sq', None)
     time_coefs = {k: v for k, v in coefs.items() if k.startswith('time_')}
 
-    if length_coef is not None:
-        extra_views_length = coef_to_extra_views(length_coef)
-        st.markdown(f"- **Video length:** Longer videos tend to get about **{int(extra_views_length):,} more views** on average.")
-    if length_sq_coef is not None:
-        st.markdown("- **Video length nonlinear effect:** Very long videos may not always increase views proportionally.")
     if time_coefs:
         best_time, best_time_coef = max(time_coefs.items(), key=lambda x: coef_to_extra_views(x[1]))
         extra_views_time = coef_to_extra_views(best_time_coef)
         time_name = best_time.replace("time_", "")
         st.markdown(f"- **Time of day posted:** Videos posted during **{time_name}** tend to get approximately **{int(extra_views_time):,} more views** than those posted in the afternoon.")
 
-    explanations = []
-    excluded_feats = {'Length_log', 'Length_log_sq'}.union(time_coefs.keys())
+   explanations = []
+excluded_feats = {'Length_log', 'Length_log_sq'}.union(time_coefs.keys())
     for feat, extra_views in zip(coef_df['Feature'], coef_df['Extra Views']):
         if feat in excluded_feats:
             continue
         if feat.startswith("Length_log*Channel_"):
-            channel_name = feat.replace("Length_log*Channel_", "")
-            channel_name_clean = channel_name.replace("_", " ").title()
-            explanations.append(f"Longer videos on the **{channel_name_clean} channel** tend to get approximately **{int(extra_views):,} more views**.")
+            channel_name = feat.replace("Length_log*Channel_", "").replace("_", " ").title()
+            explanations.append(f"{channel_name}")
         elif feat.startswith("Channel_"):
-            channel_name = feat.replace("Channel_", "")
-            channel_name_clean = channel_name.replace("_", " ").title()
-            explanations.append(f"Videos posted on the **{channel_name_clean} channel** tend to get approximately **{int(extra_views):,} more views** than Facebook.")
+            channel_name = feat.replace("Channel_", "").replace("_", " ").title()
+            explanations.append(f"{channel_name}")
         elif feat.startswith("Content_"):
-            content_name = feat.replace("Content_", "")
-            content_name_clean = content_name.replace("_", " ").title()
-            explanations.append(f"Videos featuring **{content_name_clean}** tend to get about **{int(extra_views):,} more views** than 'Edit' content.")
+            content_name = feat.replace("Content_", "").replace("_", " ").title()
+            explanations.append(f"{content_name}")
         else:
-            explanations.append(f"{feat} increases views by about **{int(extra_views):,} extra views** on average.")
+            explanations.append(f"{feat}")
+
 
     for explanation in explanations[:5]:
         st.markdown(f"- {explanation}")
