@@ -146,7 +146,6 @@ def run_predictor():
 
         st.success(f"### Predicted Views: {predicted_views:,.0f}")
         st.write(f"**95% Confidence Interval (mean):** {ci_lower:,.0f} – {ci_upper:,.0f}")
-        st.write(f"**95% Prediction Interval (actual):** {pi_lower:,.0f} – {pi_upper:,.0f}")
 
         df_full['length_diff'] = np.abs(df_full['length'] - length)
 
@@ -205,11 +204,6 @@ def show_optimal_characteristics():
     length_sq_coef = coefs.get('Length_log_sq', None)
     time_coefs = {k: v for k, v in coefs.items() if k.startswith('time_')}
 
-    if length_coef is not None:
-        extra_views_length = coef_to_extra_views(length_coef)
-        st.markdown(f"- **Video length:** Longer videos tend to get about **{int(extra_views_length):,} more views** on average.")
-    if length_sq_coef is not None:
-        st.markdown("- **Video length nonlinear effect:** Very long videos may not always increase views proportionally.")
     if time_coefs:
         best_time, best_time_coef = max(time_coefs.items(), key=lambda x: coef_to_extra_views(x[1]))
         extra_views_time = coef_to_extra_views(best_time_coef)
