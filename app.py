@@ -42,17 +42,6 @@ def load_and_train_model():
 
     return model, dummies.columns.tolist(), mae, mse, rmse, r2, df
 
-def get_thumbnail(url):
-    if "youtube.com" in url or "youtu.be" in url:
-        match = re.search(r'(?:v=|be/)([a-zA-Z0-9_-]{11})', url)
-        if match:
-            return f"https://img.youtube.com/vi/{match.group(1)}/0.jpg"
-    elif "tiktok.com" in url:
-        return "https://via.placeholder.com/320x180.png?text=TikTok+Preview"
-    elif "facebook.com" in url:
-        return "https://via.placeholder.com/320x180.png?text=Facebook+Preview"
-    return "https://via.placeholder.com/320x180.png?text=No+Preview"
-
 model, dummy_columns, mae, mse, rmse, r2, df_full = load_and_train_model()
 
 print("Dummy columns used in model:", dummy_columns)  # Debug print for dummy columns
@@ -167,13 +156,13 @@ def run_predictor():
         cols = st.columns(3)
         for i, (_, row) in enumerate(similar_videos.iterrows()):
             with cols[i]:
-                st.image(get_thumbnail(row['post link']), caption=row['channel'], use_container_width=True)
+                st.markdown(f"[▶ Watch Video]({row['post link']})", unsafe_allow_html=True)
                 st.markdown(f"**Views:** {int(row['video views']):,}")
                 st.markdown(f"**Length:** {int(row['length'])} sec")
                 st.markdown(f"**Time of Day:** {row['time'].capitalize()}")
                 st.markdown(f"**Channel:** {row['channel']}")
                 st.markdown(f"**Content Type:** {row['content']}")
-                st.markdown(f"[▶ Watch Video]({row['post link']})", unsafe_allow_html=True)
+
 
     with st.expander("📈 Model Performance (Log Scale)"):
         st.write(f"**MAE:** {mae:.3f}")
