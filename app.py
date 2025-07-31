@@ -232,13 +232,13 @@ def show_optimal_characteristics():
     cols = st.columns(3)
     for i, (_, row) in enumerate(top_examples.iterrows()):
         with cols[i]:
-            st.image(get_thumbnail(row['post link']), caption=row['channel'], use_container_width=True)
+            st.markdown(f"[▶ Watch Video]({row['post link']})", unsafe_allow_html=True)
             st.markdown(f"**Views:** {int(row['video views']):,}")
             st.markdown(f"**Length:** {int(row['length'])} sec")
             st.markdown(f"**Time of Day:** {row['time'].capitalize()}")
             st.markdown(f"**Channel:** {row['channel']}")
             st.markdown(f"**Content Type:** {row['content']}")
-            st.markdown(f"[▶ Watch Video]({row['post link']})", unsafe_allow_html=True)
+
 
 if st.session_state.page == 'predictor':
     run_predictor()
