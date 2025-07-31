@@ -219,7 +219,7 @@ def show_optimal_characteristics():
             channel_name = feat.replace("Length_log*channel_", "").replace("_", " ").title()
             explanations.append(f"Longer videos on the **{channel_name} channel** tend to get approximately **{int(extra_views):,} more views** on average.")
         elif feat.startswith("channel_"):
-            channel_name = feat.replace("channel_", "").replace("_", " ").title()
+            channel_name = feat.replace("Channel_", "").replace("_", " ").title()
             explanations.append(f"Videos posted on the **{channel_name}** tend to get approximately **{int(extra_views):,} more views** on average.")
         elif feat.startswith("content_"):
             content_name = feat.replace("Content_", "").replace("_", " ").title()
