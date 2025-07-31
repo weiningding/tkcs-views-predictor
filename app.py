@@ -1,4 +1,4 @@
-geimport pandas as pd
+import pandas as pd
 import numpy as np
 import statsmodels.api as sm
 import streamlit as st
