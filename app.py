@@ -210,8 +210,8 @@ def show_optimal_characteristics():
         time_name = best_time.replace("time_", "")
         st.markdown(f"- **Time of day posted:** Videos posted during **{time_name}** tend to get approximately **{int(extra_views_time):,} more views** than those posted in the afternoon.")
 
-   explanations = []
-excluded_feats = {'Length_log', 'Length_log_sq'}.union(time_coefs.keys())
+    explanations = []
+    excluded_feats = {'Length_log', 'Length_log_sq'}.union(time_coefs.keys())
     for feat, extra_views in zip(coef_df['Feature'], coef_df['Extra Views']):
         if feat in excluded_feats:
             continue
@@ -226,7 +226,6 @@ excluded_feats = {'Length_log', 'Length_log_sq'}.union(time_coefs.keys())
             explanations.append(f"{content_name}")
         else:
             explanations.append(f"{feat}")
-
 
     for explanation in explanations[:5]:
         st.markdown(f"- {explanation}")
