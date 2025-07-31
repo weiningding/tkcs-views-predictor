@@ -215,13 +215,13 @@ def show_optimal_characteristics():
     for feat, extra_views in zip(coef_df['Feature'], coef_df['Extra Views']):
         if feat in excluded_feats:
             continue
-        if feat.startswith("Length_log*Channel_"):
-            channel_name = feat.replace("Length_log*Channel_", "").replace("_", " ").title()
+        if feat.startswith("Length_log*channel_"):
+            channel_name = feat.replace("Length_log*channel_", "").replace("_", " ").title()
             explanations.append(f"Longer videos on the **{channel_name} channel** tend to get approximately **{int(extra_views):,} more views**.")
-        elif feat.startswith("Channel_"):
-            channel_name = feat.replace("Channel_", "").replace("_", " ").title()
+        elif feat.startswith("channel_"):
+            channel_name = feat.replace("channel_", "").replace("_", " ").title()
             explanations.append(f"Videos posted on the **{channel_name} channel** tend to get approximately **{int(extra_views):,} more views** than Facebook.")
-        elif feat.startswith("Content_"):
+        elif feat.startswith("content_"):
             content_name = feat.replace("Content_", "").replace("_", " ").title()
             explanations.append(f"Videos featuring **{content_name}** tend to get about **{int(extra_views):,} more views** than 'Edit' content.")
         else:
