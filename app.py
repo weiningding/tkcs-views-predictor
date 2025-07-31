@@ -1,4 +1,4 @@
-import pandas as pd
+geimport pandas as pd
 import numpy as np
 import statsmodels.api as sm
 import streamlit as st
@@ -217,13 +217,13 @@ def show_optimal_characteristics():
             continue
         if feat.startswith("Length_log*channel_"):
             channel_name = feat.replace("Length_log*channel_", "").replace("_", " ").title()
-            explanations.append(f"Longer videos on the **{channel_name} channel** tend to get approximately **{int(extra_views):,} more views**.")
+            explanations.append(f"Longer videos on the **{channel_name} channel** tend to get approximately **{int(extra_views):,} more views** on average.")
         elif feat.startswith("channel_"):
             channel_name = feat.replace("channel_", "").replace("_", " ").title()
-            explanations.append(f"Videos posted on the **{channel_name} channel** tend to get approximately **{int(extra_views):,} more views** than Facebook.")
+            explanations.append(f"Videos posted on the **{channel_name}** tend to get approximately **{int(extra_views):,} more views** on average.")
         elif feat.startswith("content_"):
             content_name = feat.replace("Content_", "").replace("_", " ").title()
-            explanations.append(f"Videos featuring **{content_name}** tend to get about **{int(extra_views):,} more views** than 'Edit' content.")
+            explanations.append(f"Videos featuring a **{content_name}** tend to get about **{int(extra_views):,} more views** on average.")
         else:
             explanations.append(f"{feat} increases views by about **{int(extra_views):,} extra views** on average.")
 
